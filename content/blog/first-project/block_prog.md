@@ -1,5 +1,5 @@
 ---
-title: Starting With mBlock and netlify
+title: Starting With mBlock
 date: "2015-05-01T22:12:03.284Z"
 description: "Hello World"
 ---
