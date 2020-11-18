@@ -22,7 +22,9 @@ const BlogPostTemplate = ({ data, location }) => {
         itemType="http://schema.org/Article"
       >
         <header>
+        <div dir="rtl"> 
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
+          </div>
           <p>{post.frontmatter.date}</p>
         </header>
         <section
