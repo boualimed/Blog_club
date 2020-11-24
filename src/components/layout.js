@@ -26,7 +26,7 @@ const Layout = ({ location, title, children }) => {
     <div class="columneng">
               <div className="global-wrapper" data-is-root-path={isRootPath}>
             
-               hello  world <h1> very hard</h1>
+               Hello <h1> This Section reserved for taking notes</h1>
               
                
                </div>
