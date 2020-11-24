@@ -6,12 +6,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // Define a template for blog post
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
-
+  const notePost = path.resolve(`./src/pages/note-post.js`)
   // Get all markdown blog posts sorted by date
   const result = await graphql(
     `
       {
-        allMarkdownRemark(
+        allMarkdownRemark(filter: { frontmatter: { status: { eq: "online" } }}
           sort: { fields: [frontmatter___date], order: ASC }
           limit: 1000
         ) {
@@ -21,10 +21,37 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               slug
             }
           }
-        }
+        } 
+        markdownRemark  {
+          html
+          }
+         
       }
     `
+
+    
+
   )
+  const resultnote = await graphql(
+    `
+      {
+        allMarkdownRemark(filter: { frontmatter: { status: { eq: "note" } }}
+          sort: { fields: [frontmatter___date], order: ASC }
+          limit: 1000
+        ) {
+          nodes {
+            id
+            fields {
+              slug
+            }
+          }
+        } 
+        markdownRemark  {
+          html
+          }
+         
+      }
+    `)
 
   if (result.errors) {
     reporter.panicOnBuild(
@@ -33,8 +60,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     )
     return
   }
+  if (resultnote.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your note posts`,
+      result.errors
+    )
+    return
+  }
 
   const posts = result.data.allMarkdownRemark.nodes
+  const notes = resultnote.data.allMarkdownRemark.nodes
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -48,6 +83,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       createPage({
         path: post.fields.slug,
         component: blogPost,
+        context: {
+          id: post.id,
+          previousPostId,
+          nextPostId,
+        },
+      })
+    })
+  }
+  if (notes.length > 0) {
+    notes.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : notes[index - 1].id
+      const nextPostId = index === notes.length - 1 ? null : notes[index + 1].id
+
+      createPage({
+        path: post.fields.slug,
+        component: notePost,
         context: {
           id: post.id,
           previousPostId,
