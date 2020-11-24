@@ -157,7 +157,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
-      staus: String
+      status: String
     }
 
     type Fields {
