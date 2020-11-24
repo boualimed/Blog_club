@@ -21,6 +21,18 @@ const Layout = ({ location, title, children }) => {
   }
 
   return (
+    
+    <div class="row"> 
+    <div class="columneng">
+              <div className="global-wrapper" data-is-root-path={isRootPath}>
+            
+               hello  world <h1> very hard</h1>
+              
+               
+               </div>
+     </div>
+    
+     <div class="columnar">
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">{header}</header>
       <main>{children}</main>
@@ -29,6 +41,8 @@ const Layout = ({ location, title, children }) => {
         {` `}
         <a href="https://www.gatsbyjs.com">Gatsby</a>
       </footer>
+      </div>
+    </div>
     </div>
   )
 }

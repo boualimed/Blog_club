@@ -332,3 +332,20 @@ a:focus {
     list-style-position: inside;
   }
 }
+.columnar {
+  float: left;
+  width: 70%;
+  }
+.columneng {
+  float: left;
+  width: 30%;
+  border: 3px dotted blockquote;
+  background-color: #F9F9F9;
+  
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
